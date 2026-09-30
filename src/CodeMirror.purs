@@ -12,8 +12,10 @@ module CodeMirror
   , eatSpace
   , match
   , next
+  , current
   , defineStreamLanguage
   , tag
+  , defineTag
   , defineHighlightStyle
   , syntaxHighlighting
   , lineNumbers
@@ -76,12 +78,17 @@ foreign import data ViewUpdate :: Type
 foreign import eatSpace :: Stream -> Effect Boolean
 foreign import match :: Regex -> Stream -> Effect Boolean
 foreign import next :: Stream -> Effect Unit
+foreign import current :: Stream -> Effect String
 foreign import defineStreamLanguage
   :: forall state
-   . { startState :: Effect state, token :: EffectFn2 Stream state (Nullable String) }
+   . { startState :: Effect state
+     , token :: EffectFn2 Stream state (Nullable String)
+     , tokenTable :: Object Tag
+     }
   -> Extension
 
 foreign import tag :: String -> Tag
+foreign import defineTag :: Effect Tag
 foreign import defineHighlightStyle :: Array { tag :: Tag, color :: String } -> HighlightStyle
 foreign import syntaxHighlighting :: HighlightStyle -> Extension
 foreign import lineNumbers :: Extension

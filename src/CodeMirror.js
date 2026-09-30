@@ -2,15 +2,17 @@ import { EditorState } from "@codemirror/state";
 import * as View from "@codemirror/view";
 import * as Commands from "@codemirror/commands";
 import * as Language from "@codemirror/language";
-import { tags } from "@lezer/highlight";
+import { Tag, tags } from "@lezer/highlight";
 import { oneDark as darkTheme } from "@codemirror/theme-one-dark";
 import * as Lint from "@codemirror/lint";
 
 export const eatSpace = stream => () => stream.eatSpace();
 export const match = regex => stream => () => !!stream.match(regex);
 export const next = stream => () => { stream.next(); };
+export const current = stream => () => stream.current();
 export const defineStreamLanguage = parser => Language.StreamLanguage.define(parser);
 export const tag = name => tags[name];
+export const defineTag = () => Tag.define();
 export const defineHighlightStyle = specs => Language.HighlightStyle.define(specs);
 export const syntaxHighlighting = style => Language.syntaxHighlighting(style);
 export const lineNumbers = View.lineNumbers();
