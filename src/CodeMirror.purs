@@ -89,7 +89,7 @@ foreign import defineStreamLanguage
 
 foreign import tag :: String -> Tag
 foreign import defineTag :: Effect Tag
-foreign import defineHighlightStyle :: Array { tag :: Tag, color :: String } -> HighlightStyle
+foreign import defineHighlightStyle :: forall style. Array { tag :: Tag, color :: String | style } -> HighlightStyle
 foreign import syntaxHighlighting :: HighlightStyle -> Extension
 foreign import lineNumbers :: Extension
 foreign import highlightActiveLineGutter :: Extension
