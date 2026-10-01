@@ -80,10 +80,11 @@ foreign import match :: Regex -> Stream -> Effect Boolean
 foreign import next :: Stream -> Effect Unit
 foreign import current :: Stream -> Effect String
 foreign import defineStreamLanguage
-  :: forall state
+  :: forall state options
    . { startState :: Effect state
      , token :: EffectFn2 Stream state (Nullable String)
      , tokenTable :: Object Tag
+     | options
      }
   -> Extension
 
