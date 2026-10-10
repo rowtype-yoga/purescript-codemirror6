@@ -9,6 +9,11 @@ module CodeMirror
   , ViewUpdate
   , Line
   , Diagnostic
+  , Completion
+  , CompletionContext
+  , CompletionResult
+  , autocompletion
+  , completionKeymap
   , eatSpace
   , match
   , next
@@ -66,6 +71,27 @@ type Diagnostic =
   , message :: String
   }
 
+-- | Synchronous completion sources. Ranges use document UTF-16 offsets.
+type CompletionContext =
+  { state :: EditorState
+  , pos :: Int
+  , explicit :: Boolean
+  }
+
+type Completion =
+  { label :: String
+  , detail :: String
+  , type :: String
+  , apply :: String
+  }
+
+type CompletionResult =
+  { from :: Int
+  , to :: Int
+  , options :: Array Completion
+  , validFor :: Regex
+  }
+
 foreign import data Stream :: Type
 foreign import data Extension :: Type
 foreign import data Tag :: Type
@@ -120,3 +146,10 @@ foreign import documentLine :: Int -> EditorState -> Line
 foreign import replaceRange :: EditorView -> { from :: Int, to :: Int, insert :: String } -> Effect Unit
 foreign import setDiagnostics :: EditorView -> Array Diagnostic -> Effect Unit
 foreign import destroy :: EditorView -> Effect Unit
+foreign import autocompletion
+  :: { override :: Array (CompletionContext -> Nullable CompletionResult)
+     , defaultKeymap :: Boolean
+     }
+  -> Extension
+
+foreign import completionKeymap :: Array KeyBinding

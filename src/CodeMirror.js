@@ -5,6 +5,7 @@ import * as Language from "@codemirror/language";
 import { Tag, tags } from "@lezer/highlight";
 import { oneDark as darkTheme } from "@codemirror/theme-one-dark";
 import * as Lint from "@codemirror/lint";
+import * as Autocomplete from "@codemirror/autocomplete";
 
 export const eatSpace = stream => () => stream.eatSpace();
 export const match = regex => stream => () => !!stream.match(regex);
@@ -43,3 +44,5 @@ export const documentLine = number => state => state.doc.line(number);
 export const replaceRange = view => changes => () => view.dispatch({ changes });
 export const setDiagnostics = view => diagnostics => () => view.dispatch(Lint.setDiagnostics(view.state, diagnostics));
 export const destroy = view => () => view.destroy();
+export const autocompletion = config => Autocomplete.autocompletion(config);
+export const completionKeymap = Autocomplete.completionKeymap;

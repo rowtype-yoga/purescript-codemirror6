@@ -6,6 +6,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@codemirror/autocomplete": "^6.0.0",
     "@codemirror/commands": "^6.0.0",
     "@codemirror/language": "^6.0.0",
     "@codemirror/lint": "^6.9.6",
