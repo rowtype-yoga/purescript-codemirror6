@@ -58,9 +58,10 @@ import Prelude
 import Data.Nullable (Nullable)
 import Data.String.Regex (Regex)
 import Effect (Effect)
-import Effect.Uncurried (EffectFn1, EffectFn2)
+import Effect.Uncurried (EffectFn1, EffectFn2, EffectFn3)
 import Foreign.Object (Object)
 import Web.DOM.Element (Element)
+import Web.DOM.Node (Node)
 
 type Line = { from :: Int, to :: Int }
 
@@ -149,6 +150,12 @@ foreign import destroy :: EditorView -> Effect Unit
 foreign import autocompletion
   :: { override :: Array (CompletionContext -> Nullable CompletionResult)
      , defaultKeymap :: Boolean
+     , icons :: Boolean
+     , addToOptions ::
+         Array
+           { render :: EffectFn3 Completion EditorState EditorView (Nullable Node)
+           , position :: Int
+           }
      }
   -> Extension
 
