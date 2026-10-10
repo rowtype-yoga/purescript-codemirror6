@@ -60,6 +60,7 @@ import Data.String.Regex (Regex)
 import Effect (Effect)
 import Effect.Uncurried (EffectFn1, EffectFn2, EffectFn3)
 import Foreign.Object (Object)
+import Untagged.Union (UndefinedOr)
 import Web.DOM.Element (Element)
 import Web.DOM.Node (Node)
 
@@ -90,7 +91,8 @@ type CompletionResult =
   { from :: Int
   , to :: Int
   , options :: Array Completion
-  , validFor :: Regex
+  , filter :: Boolean
+  , validFor :: UndefinedOr Regex
   }
 
 foreign import data Stream :: Type
